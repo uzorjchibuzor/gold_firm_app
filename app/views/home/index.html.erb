@@ -1,10 +1,11 @@
 <!-- ========== MAIN CONTENT ========== -->
 <main id="content">
   <div class="overflow-hidden">
-
-
     <!-- Hero -->
     <div class="relative">
+      <div class="absolute top-0 right-0 pt-4 bg-blue-500">
+        <%= turbo_frame_tag "login-form" %>
+      </div>
       <!-- Gradients -->
       <div aria-hidden="true" class="flex -z-1 absolute -top-48 start-0">
         <div class="bg-purple-200 opacity-30 blur-3xl w-[1036px] h-150 dark:bg-purple-900 dark:opacity-20"></div>
