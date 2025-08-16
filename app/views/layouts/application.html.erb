@@ -16,21 +16,23 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
   <body>
-    <%= render "layouts/header" %>
-    <% if notice %>
-      <div class="bg-green-100 border border-green-400 text-green-800 px-4 py-3 rounded-md shadow-md">
-        <div class="flex items-center justify-between">
-          <span class="notice"><%= notice %></span>
+    <div class="mx-auto px-5">
+      <%= render "layouts/header" %>
+      <% if notice %>
+        <div class="bg-green-100 border border-green-400 text-green-800 px-4 py-3 rounded-md shadow-md">
+          <div class="flex items-center justify-between">
+            <span class="notice"><%= notice %></span>
+          </div>
         </div>
-      </div>
-    <% elsif alert %>
-      <div class="bg-red-100 border border-red-400 text-red-800 px-4 py-3 rounded-md shadow-md">
-        <div class="flex items-center justify-between">
-          <span class="alert"><%= alert %></span>
+      <% elsif alert %>
+        <div class="bg-red-100 border border-red-400 text-red-800 px-4 py-3 rounded-md shadow-md">
+          <div class="flex items-center justify-between">
+            <span class="alert"><%= alert %></span>
+          </div>
         </div>
-      </div>
-    <% end %>
-    <%= yield %>
-    <%= render "layouts/footer"%>
+      <% end %>
+      <%= yield %>
+      <%= render "layouts/footer"%>
+    </div>
   </body>
 </html>

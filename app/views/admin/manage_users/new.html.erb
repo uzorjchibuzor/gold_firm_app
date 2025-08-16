@@ -1,0 +1,40 @@
+<div class="mx-auto max-w-sm text-center">
+  <h3 class="text-center.my-5">Create a new User account</h3>
+  <%= form_with model: @user, url: admin_manage_users_path(@user) do |form| %>
+    <% if @user.errors.any? %>
+      <div id="error_explantion">
+        <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being created.</h2>
+        <ul>
+          <% @user.errors.full_messages.each do |message| %>
+            <li>
+              <%= message %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="form-group mb-6">
+      <div class="field">
+        <%= form.label :email, class: "form-label inline-block mb-2 text-gray-700" %>
+        <%=form.email_field :email, class: "form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" %>
+      </div>
+      <div class="field">
+        <%= form.label :full_name, class: "form-label inline-block mb-2 text-gray-700" %>
+        <%=form.text_field :full_name, class: "form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" %>
+      </div>
+      <div class="field">
+        <%= form.label :password, class: "form-label inline-block mb-2 text-gray-700" %>
+        <%=form.password_field :password, class: "form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" %>
+      </div>
+      <div class="field">
+        <%= form.label :password_confirmation, class: "form-label inline-block mb-2 text-gray-700" %>
+        <%=form.password_field :password_confirmation, class: "mb-2 form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" %>
+      </div>
+      <div class="actions">
+        <%= form.submit "Create User", class: "mb-8 px-3 py-2 bg-green-600 text-white font-medium text-xs leading-tight rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out" %>
+      </div> 
+      <h5 class="text-sm text-red-700"> Please make sure that all information entered is correct as there is no ability to change at this time</h5>
+    </div>
+  <% end %>
+</div>
+
