@@ -1,5 +1,6 @@
 class Admin::ManageUsersController < ApplicationController
   before_action :is_user_admin?
+  
   def index
     @users = User.all
   end

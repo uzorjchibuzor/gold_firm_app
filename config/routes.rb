@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
+  
+  get "enrollments/new"
+  get "enrollments/create"
+  get "enrollments/unenroll"
   devise_for :users
+
+  get "users/:id", to: "profiles#show"
   get "home/index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
