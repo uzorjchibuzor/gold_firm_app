@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_08_18_193035) do
+ActiveRecord::Schema[7.2].define(version: 2025_08_19_144458) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,7 +20,16 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_18_193035) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["school_year_id"], name: "index_enrollments_on_school_year_id"
+    t.index ["user_id", "school_year_id"], name: "index_enrollments_on_user_id_and_school_year_id", unique: true
     t.index ["user_id"], name: "index_enrollments_on_user_id"
+  end
+
+  create_table "school_terms", force: :cascade do |t|
+    t.string "term_title", null: false
+    t.bigint "school_year_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["school_year_id"], name: "index_school_terms_on_school_year_id"
   end
 
   create_table "school_years", force: :cascade do |t|
@@ -28,6 +37,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_18_193035) do
     t.datetime "updated_at", null: false
     t.string "start_year", default: "2025"
     t.string "end_year", default: "2026"
+    t.index ["start_year", "end_year"], name: "index_school_years_on_start_year_and_end_year", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -47,4 +57,5 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_18_193035) do
 
   add_foreign_key "enrollments", "school_years"
   add_foreign_key "enrollments", "users"
+  add_foreign_key "school_terms", "school_years"
 end

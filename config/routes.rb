@@ -1,11 +1,7 @@
 Rails.application.routes.draw do
-  
-  get "enrollments/new"
-  get "enrollments/create"
-  get "enrollments/unenroll"
   devise_for :users
 
-  get "users/:id", to: "profiles#show"
+  get "users/:id", to: "profiles#show", as: "show_profile"
   get "home/index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -16,6 +12,9 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :manage_users
   end
+
+  post "admin/manage_users/enroll_user", to: "admin/manage_users#enroll_user", as: "enroll_user"
+  post "admin/manage_users/unenroll_user", to: "admin/manage_users#unenroll_user", as: "unenroll_user"
 
   # Render dynamic PWA files from app/views/pwa/*
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
