@@ -1,7 +1,7 @@
 class SchoolYear < ApplicationRecord
   has_many :enrollments, dependent: :destroy
   has_many :users, through: :enrollment
-  has_many :school_terms
+  has_many :school_terms, dependent: :destroy
 
   validates :start_year, presence: true
   validates :end_year, presence: true
