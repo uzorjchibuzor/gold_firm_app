@@ -7,7 +7,8 @@ FactoryBot.define do
   end
 
   factory :term do
-    session { nil }
+    school_year
+    term_title { [ "First Term", "Second Term", "Third Term" ] }
   end
 
 
@@ -27,6 +28,6 @@ FactoryBot.define do
 
   factory :enrollment do
     user
-    school_year 
+    school_year
   end
 end
