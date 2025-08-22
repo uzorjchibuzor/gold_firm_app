@@ -45,8 +45,6 @@ RSpec.describe "Manage Users Page", type: :feature do
         click_on student_user.full_name
         expect(page).to have_content("Complete the form below to enroll this user for the current session")
       end
-
-      context "after clicking the "
     end
   end
 end
