@@ -54,6 +54,21 @@ RSpec.describe "User Profile Show page", type: :feature do
         expect(page).to have_content("#{student_user.full_name} has been successfully unenrolled")
         expect(student_user.enrollment.find_by(id: enrollment.id)).not_to be present?
       end
+
+      it "allows the admin to enroll a user for the current school year" do
+        visit show_profile_path(id: student_user.id)
+
+        expect(page).to have_content("Complete the form below to enroll this user for the current session.")
+        expect(page).to have_button("Register")
+
+        select "SSS 3", from: "current_class"
+
+        click_on "Register"
+        expect(page).to have_content("#{student_user.full_name} has been successfully enrolled")
+
+
+        # expect(student_user.enrollment.find_by(id: enrollment.id)).not_to be present?
+      end
     end
   end
 end
