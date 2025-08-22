@@ -9,13 +9,14 @@ RSpec.describe SchoolYear, type: :model do
         expect(school_year.save!).to be true
         expect(SchoolYear.count).to eq(1)
       end
+
       it "creates associated school_term objects" do
       school_year_id = SchoolYear.find_by(start_year: school_year.start_year, end_year: school_year.end_year).id
 
         expect(SchoolTerm.count).to eq(3)
         expect(SchoolTerm.find_by(school_year_id: school_year_id, term_title: "First Term")).to be_present
         expect(SchoolTerm.find_by(school_year_id: school_year_id, term_title: "Second Term")).to be_present
-        expect(SchoolTerm.find_by(school_year_id: school_year_id, term_title: "Third Term")).not_to be_present
+        expect(SchoolTerm.find_by(school_year_id: school_year_id, term_title: "Third Term")).to be_present
       end
 
       it "destroys associated school_term objects on upon deletion" do

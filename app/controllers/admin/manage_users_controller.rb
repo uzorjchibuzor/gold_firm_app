@@ -1,4 +1,5 @@
 class Admin::ManageUsersController < ApplicationController
+  before_action :authenticate_user!
   before_action :is_user_admin?
   before_action :set_current_school_session, only: [ :enroll_user ]
 
@@ -51,7 +52,6 @@ class Admin::ManageUsersController < ApplicationController
 
   private
   def is_user_admin?
-      return redirect_to new_user_session_path, notice: "You must be an admin to access the requested page" if !current_user
       redirect_to root_path, notice: "You must be an admin to access the requested page" if !(current_user.admin?)
   end
 

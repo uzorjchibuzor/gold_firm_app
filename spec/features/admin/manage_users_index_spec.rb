@@ -26,12 +26,27 @@ RSpec.describe "Manage Users Page", type: :feature do
       expect(page).to have_content("You must be an admin to access the requested page")
     end
 
-    scenario "When signed in user is an admin" do
+    scenario "When signed in user is an admin, the registered users are listed with a link to edit to edit the profile/go to the user show page" do
       sign_in admin_user
 
       visit admin_manage_users_path
+
       expect(page).to have_content("You may click on the user you want to manage from the table below")
-      expect(page).to have_content(student_user.full_name)
+      expect(page).to have_link(student_user.full_name)
+    end
+    context "when the admin clicks on the edit button" do
+      before do
+        sign_in admin_user
+        visit admin_manage_users_path
+      end
+
+
+      it "goes to a page to edit the user profile" do
+        click_on student_user.full_name
+        expect(page).to have_content("Complete the form below to enroll this user for the current session")
+      end
+
+      context "after clicking the "
     end
   end
 end

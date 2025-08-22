@@ -13,8 +13,8 @@ FactoryBot.define do
 
 
   factory :school_year do
-    start_year { Date.today.year - 1 }
-    end_year { Date.today.year }
+    start_year { Date.today.year }
+    end_year { Date.today.year + 1 }
   end
 
   factory :user do
