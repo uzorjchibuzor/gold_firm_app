@@ -23,6 +23,10 @@
         <%=form.text_field :full_name, class: "form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" %>
       </div>
       <div class="field">
+        <%= form.label :role, class: "form-label inline-block mb-2 text-gray-700" %>
+        <%=form.select :role, User.roles.keys.map { |key| [key.humanize, key] }, {} ,class: "mb-2 form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" %>
+      </div>
+      <div class="field">
         <%= form.label :password, class: "form-label inline-block mb-2 text-gray-700" %>
         <%=form.password_field :password, class: "form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" %>
       </div>
@@ -31,7 +35,7 @@
         <%=form.password_field :password_confirmation, class: "mb-2 form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" %>
       </div>
       <div class="actions">
-        <%= form.submit "Create User", class: "mb-8 px-3 py-2 bg-green-600 text-white font-medium text-xs leading-tight rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out" %>
+        <%= form.submit "Create", class: "mb-8 px-3 py-2 bg-green-600 text-white font-medium text-xs leading-tight rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out" %>
       </div> 
       <h5 class="text-sm text-red-700"> Please make sure that all information entered is correct as there is no ability to change at this time</h5>
     </div>

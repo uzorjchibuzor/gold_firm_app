@@ -16,7 +16,7 @@ class Admin::ManageUsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save!
-      redirect_to  admin_manage_users_path, notice: "#{@user.full_name} has been successfully created."
+      redirect_to  admin_manage_users_path, notice: "#{@user.full_name}'s account has been successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -38,7 +38,7 @@ class Admin::ManageUsersController < ApplicationController
   end
 
   def update
-    @user = User.find_(params[:id])
+    @user = User.find(params[:id])
     if @user&.update(user_params)
       redirect_to  admin_manage_users_path, notice: "#{@user.full_name}'s account was successfully updated."
     else

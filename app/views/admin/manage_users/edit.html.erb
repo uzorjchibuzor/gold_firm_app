@@ -1,5 +1,5 @@
 <div class="mx-auto max-w-sm text-center">
-  <h2 class="text-center.my-5"><%= @user.full_name%>'s Account</h2>
+  <h2 class="text-center.my-5">Edit <%= @user.full_name%>'s Account</h2>
   <%= form_with model: @user, url: admin_manage_user_path(@user) do |form| %>
     <% if @user.errors.any? %>
       <div id="error_explantion">

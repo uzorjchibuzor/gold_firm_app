@@ -21,7 +21,7 @@
           <th class="px-6 py-4"> <%= user&.current_class %> </th>
           <th class="px-6 py-4"><%= user&.role.titleize %></th>
           <th class="px-6 py-4">
-            <%= link_to "Edit", edit_admin_manage_user_path(user) %>
+            <%= link_to "Edit", edit_admin_manage_user_path(user), id: "#{user.full_name.downcase.sub(" ", "")}_#{user.id.to_s}" %>
           </th>
         </tr>
       <% end %>
