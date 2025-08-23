@@ -1,9 +1,11 @@
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg mx-auto text-center">
-  <%= link_to "Create User", new_admin_manage_user_path, class: "py-3 md:py-6 font-medium text-blue-600 hover:text-blue-500 focus:outline-hidden focus:text-gray-500 dark:text-neutral-400 dark:hover:text-neutral-500 dark:focus:text-neutral-500"%>
-  <h3 class="text-blue-400">
+  <div class="mb-5">
+    <%= link_to "Create User", new_admin_manage_user_path, class: "px-3 py-2 bg-blue-600 text-white font-medium text-xs leading-tight rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"%>
+  </div>
+  <h3 class="text-blue-400 mb-5">
     You may click on the user you want to manage from the table below.
   </h3>
-  <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+  <table class="w-full text-sm text-center rtl:text-right text-gray-500 dark:text-gray-400">
     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark-bg-gray-700 dark:text-gray-400">
       <tr>
         <th scope="col" class="px-6 py-3">Registration Number</th>
