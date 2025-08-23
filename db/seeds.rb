@@ -10,3 +10,6 @@
 
 User.create(email: "cefedigbuej@gmail.com", role: "admin", full_name: "Uzor Lawrence", password: "123456", password_confirmation: "123456")
 # This creates a new admin user after db purge
+
+User.create(email: "example@gmail.com", role: "student", full_name: "Abioye Lekan", password: "123456", password_confirmation: "123456")
+User.create(email: "sample@gmail.com", role: "teacher", full_name: "Wale Rowland", password: "123456", password_confirmation: "123456")
