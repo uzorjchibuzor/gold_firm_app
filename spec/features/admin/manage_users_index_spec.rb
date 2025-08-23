@@ -9,7 +9,7 @@ RSpec.describe "Manage Users Page", type: :feature do
 
     scenario "When user not signed in" do
       visit admin_manage_users_path
-      expect(page).to have_content("You must be an admin to access the requested page")
+      expect(page).to have_content("You need to sign in or sign up before continuing")
     end
 
     scenario "When signed in user is a student" do

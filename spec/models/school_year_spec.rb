@@ -35,9 +35,9 @@ RSpec.describe SchoolYear, type: :model do
 
       it "does not create associated school_term objects" do
         expect(SchoolTerm.count).to eq(0)
-        expect(SchoolTerm.find_by_term_title("First Term")).not_to be_present
-        expect(SchoolTerm.find_by_term_title("Second Term")).not_to be_present
-        expect(SchoolTerm.find_by_term_title("Third Term")).to be_present
+        expect(SchoolTerm.find_by(school_year_id: school_year.id, term_title: "First Term")).not_to be_present
+        expect(SchoolTerm.find_by(school_year_id: school_year.id, term_title: "Second Term")).not_to be_present
+        expect(SchoolTerm.find_by(school_year_id: school_year.id, term_title: "Third Term")).not_to be_present
       end
     end
   end
