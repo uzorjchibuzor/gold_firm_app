@@ -31,7 +31,6 @@ class Admin::ManageUsersController < ApplicationController
                                                     .find_or_create_by!(
                                                       title: params[:current_class])
                                                     .id
-      # enrollment = @current_session_year.enrollments.create(user_id: params[:user_id])
 
       set_enrolled_class(desired_grade_level_id, @current_session_year.id)
       redirect_to admin_manage_users_path, notice: "#{@user.full_name} has been successfully enrolled."
@@ -50,8 +49,8 @@ class Admin::ManageUsersController < ApplicationController
 
   def unenroll_user
     @user = User.find(params[:user_id])
-    enrollment = Enrollment.find_by(user_id: params[:user_id], school_year_id: params[:school_year_id])
-    enrollment.destroy
+    class_subcription = @user.yearly_grade_levels.find_by(user_id: params[:user_id], school_year_id: params[:school_year_id])
+    class_subcription.destroy
     redirect_to show_profile_path(id: @user.id), notice: "#{@user.full_name} has been successfully unenrolled."
   end
 

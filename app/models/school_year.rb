@@ -1,8 +1,6 @@
 class SchoolYear < ApplicationRecord
   before_save :set_clean_year_title
 
-  has_many :enrollments, dependent: :destroy
-  has_many :users, through: :enrollments
   has_many :school_terms, dependent: :destroy
   has_many :grade_levels, dependent: :destroy
 

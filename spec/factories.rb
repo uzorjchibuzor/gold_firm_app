@@ -2,13 +2,14 @@
 
 FactoryBot.define do
   factory :grade_level do
-    title { "MyString" }
+    title { "JSS 1" }
+    school_year
   end
 
   factory :yearly_grade_level do
-    user { nil }
-    grade_level { nil }
-    user { nil }
+    user
+    grade_level
+    school_year
   end
 
   factory :school_term do
@@ -16,15 +17,9 @@ FactoryBot.define do
     school_year { nil }
   end
 
-  factory :term do
-    school_year
-    term_title { [ "First Term", "Second Term", "Third Term" ] }
-  end
-
-
   factory :school_year do
-    start_year { Date.today.year }
-    end_year { Date.today.year + 1 }
+    start_year { 1.years.ago.year }
+    end_year { 0.years.ago.year }
   end
 
   factory :user do
@@ -33,11 +28,6 @@ FactoryBot.define do
     password { '123456' }
     password_confirmation { '123456' }
     role { "student" }
-    current_class { "JSS 1" }
-  end
-
-  factory :enrollment do
-    user
-    school_year
+    disabled { false }
   end
 end

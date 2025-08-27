@@ -22,7 +22,7 @@
           <th class="px-6 py-4"><%= link_to user.full_name, "/users/#{user.id}" %></th>
           <th class="px-6 py-4"><%= user&.role.titleize %></th>
           <th class="px-6 py-4">
-            <%= link_to "Edit", edit_admin_manage_user_path(user), id: "edit_#{user.full_name.downcase.sub(" ", "")}_#{user.id.to_s}", class: "px-3 py-2 bg-green-600 text-white font-medium text-xs leading-tight rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out" %>
+            <%= link_to "Edit", edit_admin_manage_user_path(user), id: "edit_#{user.full_name.downcase.sub(" ", "_")}_#{user.id.to_s}", class: "px-3 py-2 bg-green-600 text-white font-medium text-xs leading-tight rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out" %>
           </th>
           <th class="px-6 py-4">
             <%= button_to "Disable", disable_user_path(user:), data: { turbo_confirm: "Are you sure?" }, class:"px-3 py-2 bg-red-600 text-white font-medium text-xs leading-tight rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out" %>

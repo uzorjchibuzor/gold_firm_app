@@ -46,7 +46,7 @@ RSpec.describe "Manage Users Page", type: :feature do
 
       context "when the admin clicks on the edit button" do
         before do
-          click_on "#{student_user.full_name.downcase.sub(" ", "")}_#{student_user.id}"
+          click_on "edit_#{student_user.full_name.downcase.sub(" ", "_")}_#{student_user.id}"
         end
 
         it "goes to a page to edit/update the user profile" do

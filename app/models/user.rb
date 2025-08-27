@@ -1,6 +1,4 @@
 class User < ApplicationRecord
-  has_many :enrollments, dependent: :destroy
-  has_many :school_years, through: :enrollments
   has_many :yearly_grade_levels, dependent: :destroy
   has_many :grade_levels, through: :yearly_grade_levels
 

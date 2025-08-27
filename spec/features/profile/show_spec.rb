@@ -6,8 +6,8 @@ RSpec.describe "User Profile Show page", type: :feature do
     let!(:student_user_2) { create(:user, role: "student") }
     let!(:admin_user) { create(:user, role: "admin") }
     let!(:school_year) { create(:school_year) }
-    let!(:enrollment) { create(:enrollment, user: student_user, school_year:) }
-    let!(:enrollment_2) { create(:enrollment, user: student_user_2, school_year:) }
+    let!(:grade_level) { create(:grade_level, school_year:) }
+    let!(:yearly_grade_level) { create(:yearly_grade_level, user: student_user, grade_level:, school_year:) }
 
     context "when the user is not an admin" do
       before do
@@ -17,7 +17,7 @@ RSpec.describe "User Profile Show page", type: :feature do
         visit show_profile_path(id: student_user.id)
 
         expect(page).to have_content("#{student_user.full_name}'s enrollment history")
-        expect(page).to have_content("#{enrollment.school_year.start_year}/#{enrollment.school_year.end_year}")
+        expect(page).to have_content(school_year.title)
       end
 
       it "does not allow a user to view another user's page" do
@@ -37,7 +37,7 @@ RSpec.describe "User Profile Show page", type: :feature do
         visit show_profile_path(id: student_user.id)
 
         expect(page).to have_content("#{student_user.full_name}'s enrollment history")
-        expect(page).to have_content("#{enrollment.school_year.start_year}/#{enrollment.school_year.end_year}")
+        expect(page).to have_content(school_year.title)
 
         visit show_profile_path(id: student_user_2.id)
 
@@ -49,13 +49,15 @@ RSpec.describe "User Profile Show page", type: :feature do
 
         expect(page).to have_button("Unenroll #{student_user.full_name}")
 
-        click_on "#{student_user.full_name}"
+        click_on "Unenroll #{student_user.full_name}"
 
         expect(page).to have_content("#{student_user.full_name} has been successfully unenrolled")
-        expect(student_user.enrollment.find_by(id: enrollment.id)).not_to be present?
+        expect(student_user.yearly_grade_levels.find_by(id: yearly_grade_level.id)).not_to be present?
       end
 
       it "allows the admin to enroll a user for the current school year" do
+        yearly_grade_level.destroy
+
         visit show_profile_path(id: student_user.id)
 
         expect(page).to have_content("Complete the form below to enroll this user for the current session.")
@@ -65,9 +67,6 @@ RSpec.describe "User Profile Show page", type: :feature do
 
         click_on "Register"
         expect(page).to have_content("#{student_user.full_name} has been successfully enrolled")
-
-
-        # expect(student_user.enrollment.find_by(id: enrollment.id)).not_to be present?
       end
     end
   end
