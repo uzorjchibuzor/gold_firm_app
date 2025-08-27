@@ -72,6 +72,15 @@ RSpec.describe "Manage Users Page", type: :feature do
         end
       end
 
+      context "when admin clicks on disable user button" do
+        it "disables the user and removes the user from the viewing list" do
+          click_on "disable_#{student_user.full_name.downcase.sub(" ", "_")}_#{student_user.id}"
+
+          expect(page).not_to have_link("/users/#{student_user.id}")
+          expect(page).to have_content("#{student_user.full_name}'s account has been disabled")
+        end
+      end
+
       context "when the admin clicks on the Create User link" do
         before do
           click_on "Create User"
