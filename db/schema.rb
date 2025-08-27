@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_08_19_144458) do
+ActiveRecord::Schema[7.2].define(version: 2025_08_27_210121) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,6 +22,15 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_19_144458) do
     t.index ["school_year_id"], name: "index_enrollments_on_school_year_id"
     t.index ["user_id", "school_year_id"], name: "index_enrollments_on_user_id_and_school_year_id", unique: true
     t.index ["user_id"], name: "index_enrollments_on_user_id"
+  end
+
+  create_table "grade_levels", force: :cascade do |t|
+    t.string "title"
+    t.bigint "school_year_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["school_year_id"], name: "index_grade_levels_on_school_year_id"
+    t.index ["title", "school_year_id"], name: "index_grade_levels_on_title_and_school_year_id", unique: true
   end
 
   create_table "school_terms", force: :cascade do |t|
@@ -37,6 +46,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_19_144458) do
     t.datetime "updated_at", null: false
     t.string "start_year", default: "2025"
     t.string "end_year", default: "2026"
+    t.string "title"
     t.index ["start_year", "end_year"], name: "index_school_years_on_start_year_and_end_year", unique: true
   end
 
@@ -50,12 +60,28 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_19_144458) do
     t.datetime "updated_at", null: false
     t.integer "role", default: 0
     t.string "full_name", default: ""
-    t.string "current_class", default: ""
+    t.boolean "disabled", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "yearly_grade_levels", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "grade_level_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "school_year_id", null: false
+    t.index ["grade_level_id"], name: "index_yearly_grade_levels_on_grade_level_id"
+    t.index ["school_year_id"], name: "index_yearly_grade_levels_on_school_year_id"
+    t.index ["user_id", "school_year_id"], name: "index_yearly_grade_levels_on_user_id_and_school_year_id", unique: true
+    t.index ["user_id"], name: "index_yearly_grade_levels_on_user_id"
+  end
+
   add_foreign_key "enrollments", "school_years"
   add_foreign_key "enrollments", "users"
+  add_foreign_key "grade_levels", "school_years"
   add_foreign_key "school_terms", "school_years"
+  add_foreign_key "yearly_grade_levels", "grade_levels"
+  add_foreign_key "yearly_grade_levels", "school_years"
+  add_foreign_key "yearly_grade_levels", "users"
 end

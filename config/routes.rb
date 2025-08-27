@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   post "admin/manage_users/enroll_user", to: "admin/manage_users#enroll_user", as: "enroll_user"
   post "admin/manage_users/unenroll_user", to: "admin/manage_users#unenroll_user", as: "unenroll_user"
+  post "admin/manage_users/disable_user", to: "admin/manage_users#disable_user", as: "disable_user"
 
   # Render dynamic PWA files from app/views/pwa/*
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
