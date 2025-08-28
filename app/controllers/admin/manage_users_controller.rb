@@ -28,13 +28,12 @@ class Admin::ManageUsersController < ApplicationController
   end
 
   def enroll_user
-    begin
-      desired_grade_level_id = @current_session_year.grade_levels
+    begin # I have to move this into a service later
+      desired_grade_level = @current_session_year.grade_levels
                                                     .find_or_create_by!(
-                                                      title: params[:current_class])
-                                                    .id
+                                                      title: params[:desired_class])
 
-      set_enrolled_class(desired_grade_level_id, @current_session_year.id)
+      set_enrolled_class(desired_grade_level, @current_session_year)
       redirect_to admin_manage_users_path, notice: "#{@user.full_name} has been successfully enrolled."
     rescue ActiveRecord::RecordInvalid
       redirect_to admin_manage_users_path, notice: "An error occured, please contact system admin."
@@ -75,14 +74,13 @@ class Admin::ManageUsersController < ApplicationController
   end
 
   def set_current_school_session
-    @current_session_year ||= SchoolYear.includes(:grade_levels).first_or_create(start_year: 1.year.ago.year, end_date: 0.year.ago.year)
+    @current_session_year ||= SchoolYear.find_by_title(params[:school_session])
   end
 
-  def set_enrolled_class(level_id, school_year_id)
+  def set_enrolled_class(level, school_year)
     @user = User.find(params[:user_id])
-    @user.yearly_grade_levels.create!(grade_level_id: level_id, school_year_id: school_year_id)
-    # @user = User.find(params[:user_id])
-    # @user.update(current_class: User::ALLOWED_CLASSES[(params[:current_class]).to_i][0])
+    @user.yearly_grade_levels.create!(grade_level_id: level.id, school_year_id: school_year.id)
+    SubjectsSubscriptionService.new(level).call
   end
 
   def user_params

@@ -21,6 +21,10 @@ class SchoolYear < ApplicationRecord
     end
   end
 
+  def self.school_years
+    pluck(:title)
+  end
+
   private
 
   def start_year_must_be_one_less_than_end_year

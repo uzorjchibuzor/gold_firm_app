@@ -10,7 +10,7 @@
           <th scope="col" class="px-6 py-3">S/N</th>
           <th scope="col" class="px-6 py-3">Session</th>
           <th scope="col" class="px-6 py-3">Status</th>
-          <th scope="col" class="px-6 py-3">Current Class</th>
+          <th scope="col" class="px-6 py-3">Class</th>
           <th scope="col" class="px-6 py-3">Action</th>
         </tr>
       </thead>
@@ -23,7 +23,7 @@
             <th class="px-6 py-4"> <%= grade_level.title %> </th>
             <th class="px-6 py-4">
               <% if current_user.admin? %>
-                <%= button_to "Unenroll #{@user.full_name}", unenroll_user_path(user_id: @user.id, school_year_id: grade_level.school_year.id), data: { turbo_confirm: "Are you sure?" } %>
+                <%= button_to "Unenroll #{@user.full_name}", unenroll_user_path(user_id: @user.id, school_year_id: grade_level.school_year.id), data: { turbo_confirm: "Are you sure?" }, class:"px-3 py-2 bg-red-600 text-white font-medium text-xs leading-tight rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out"%>
               <% else %>
                 <span class="text-sm">
                   Enrolled
@@ -43,8 +43,13 @@
         <%= form_with url: enroll_user_path(user_id: @user.id) do |form| %>
           <div class="form-group text-center mb-6">
             <div class="field">
-              <%= form.label :current_class, class: "form-label inline-block mb-2 text-gray-700"  %>
-            <%= form.select :current_class, GradeLevel::GRADE_TITLES, {}, class: "mb-2 form-control inline-block w-[30%] px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" %>
+              <%= form.label :school_session, class: "form-label inline-block mb-2 text-gray-700"  %>
+            <%= form.select :school_session, SchoolYear.school_years, {}, class: "mb-2 form-control inline-block w-[30%] px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" %>
+            </div>
+
+            <div class="field">
+              <%= form.label :desired_class, class: "form-label inline-block mb-2 text-gray-700"  %>
+            <%= form.select :desired_class, GradeLevel::GRADE_TITLES, {}, class: "mb-2 form-control inline-block w-[30%] px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" %>
             </div>
             <div class="actions">
               <%= form.submit "Register", class: "mb-8 px-3 py-2 bg-green-600 text-white font-medium text-xs leading-tight rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out" %>

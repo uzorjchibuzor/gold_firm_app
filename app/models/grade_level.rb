@@ -5,10 +5,11 @@ class GradeLevel < ApplicationRecord
   has_many :yearly_grade_levels, dependent: :destroy
   has_many :users, through: :yearly_grade_levels
   has_many :departments, dependent: :destroy
+  has_many :subjects, dependent: :destroy
 
   validates :title, presence: true, uniqueness: { scope: :school_year_id }
 
-  scope :sorted_by_session, -> { includes(:school_year).order("school_years.title ASC") }
+  default_scope { includes(:school_year).order("school_years.title DESC") }
   JUNIOR_GRADES = [ "JSS 1", "JSS 2", "JSS 3" ]
   SENIOR_GRADES = [ "SSS 1", "SSS 2", "SSS 3" ]
   GRADE_TITLES = [ *JUNIOR_GRADES, *SENIOR_GRADES ]

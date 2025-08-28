@@ -4,6 +4,7 @@ class User < ApplicationRecord
   has_many :yearly_grade_levels, dependent: :destroy
   has_many :grade_levels, through: :yearly_grade_levels
 
+
   before_save { |user| user.full_name = user.full_name.titleize }
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
