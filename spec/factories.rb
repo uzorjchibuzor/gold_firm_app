@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :department do
+    grade_level { nil }
+    title { "MyString" }
+  end
+
   factory :grade_level do
     title { "JSS 1" }
     school_year

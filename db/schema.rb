@@ -10,9 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_08_27_210121) do
+ActiveRecord::Schema[7.2].define(version: 2025_08_28_054944) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "departments", force: :cascade do |t|
+    t.bigint "grade_level_id", null: false
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["grade_level_id"], name: "index_departments_on_grade_level_id"
+  end
 
   create_table "enrollments", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -77,6 +85,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_27_210121) do
     t.index ["user_id"], name: "index_yearly_grade_levels_on_user_id"
   end
 
+  add_foreign_key "departments", "grade_levels"
   add_foreign_key "enrollments", "school_years"
   add_foreign_key "enrollments", "users"
   add_foreign_key "grade_levels", "school_years"
