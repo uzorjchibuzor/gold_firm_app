@@ -10,7 +10,6 @@ class SubjectsSubscriptionService
 
   def call
     JUNIOR_SUBJECTS.each do |junior_subject|
-      puts "IAM HEEERS"
       @grade_level.subjects.where(title: junior_subject).first_or_create!
     end if GradeLevel::JUNIOR_GRADES.include?(@grade_level[:title])
 

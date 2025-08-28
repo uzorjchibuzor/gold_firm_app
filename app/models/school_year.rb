@@ -16,9 +16,7 @@ class SchoolYear < ApplicationRecord
   # Ex:- scope :active, -> {where(:active => true)}
 
   after_save do |school_year|
-    SchoolTerm::TERM_TITLES.each do |term_title|
-      school_year.school_terms.create(term_title: term_title)
-    end
+    SchoolTermsCreationService.new(school_year).call
   end
 
   def self.school_years
