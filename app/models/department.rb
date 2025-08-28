@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Department < ApplicationRecord
   belongs_to :grade_level
 
@@ -10,8 +12,6 @@ class Department < ApplicationRecord
   private
 
   def allowed_department_titles
-    unless ALLOWED_TITLES.include?(title)
-      errors.add(:title, "This title is not allowed for a department, please choose from the dropdown options")
-    end
+    errors.add(:title, "This title is not allowed for a department, please choose from the dropdown options") unless ALLOWED_TITLES.include?(title)
   end
 end

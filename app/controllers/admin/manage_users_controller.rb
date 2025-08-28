@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::ManageUsersController < ApplicationController
   before_action :authenticate_user!
   before_action :is_user_admin?
@@ -40,7 +42,7 @@ class Admin::ManageUsersController < ApplicationController
   end
 
   def index
-    @users = User.all
+    @users = User.student
   end
 
   def new
@@ -73,7 +75,7 @@ class Admin::ManageUsersController < ApplicationController
   end
 
   def set_current_school_session
-    @current_session_year ||= SchoolYear.includes(:grade_levels).first
+    @current_session_year ||= SchoolYear.includes(:grade_levels).first_or_create(start_year: 1.year.ago.year, end_date: 0.year.ago.year)
   end
 
   def set_enrolled_class(level_id, school_year_id)

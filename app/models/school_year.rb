@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SchoolYear < ApplicationRecord
   before_save :set_clean_year_title
 
@@ -22,9 +24,7 @@ class SchoolYear < ApplicationRecord
   private
 
   def start_year_must_be_one_less_than_end_year
-    unless start_year.to_i + 1 === end_year.to_i
-      errors.add(:start_year, "Must be one less than End Year")
-    end
+   errors.add(:start_year, "Must be one less than End Year") unless start_year.to_i + 1 === end_year.to_i
   end
 
   def set_clean_year_title

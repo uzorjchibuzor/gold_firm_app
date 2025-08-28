@@ -6,3 +6,52 @@ inherit_gem: { rubocop-rails-omakase: rubocop.yml }
 # # Use `[a, [b, c]]` not `[ a, [ b, c ] ]`
 # Layout/SpaceInsideArrayLiteralBrackets:
 #   Enabled: false
+
+AllCops:
+  TargetRubyVersion: 3.1
+  NewCops: enable
+
+  # Linting Settings
+Lint:
+  Enabled: true
+
+Metrics:
+  LineLength:
+    Max: 100
+  AbcSize:
+  Max: 15
+
+Layout/IndentationWidth:
+  Width: 2
+
+Layout/TrailingWhitespace:
+  Enabled: true
+  
+Layout/MultilineMethodParameterLineBreaks:
+  Enabled: true
+
+Rails/HttpStatus:
+  Enabled: true
+
+Rails/HasManyOrHasOneDependent:
+  Enabled: true
+
+Style/Documentation:
+  Enabled: false
+  
+Style/FrozenStringLiteralComment:
+  Enabled: true
+
+Style/GuardClause:
+  Enabled: true
+
+Lint/UnusedMethodArgument:
+  Enabled: true
+
+Performance/Detect:
+  Enabled: true
+
+Security/JSONLoad:
+  Enabled: true
+
+
