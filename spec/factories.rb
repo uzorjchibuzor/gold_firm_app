@@ -11,9 +11,18 @@ FactoryBot.define do
     school_year
   end
 
+  factory :grade_level_school_term do
+    grade_level
+    school_term
+  end
+
+  factory :grade_level_student_user do
+    grade_level
+    user
+  end
+
   factory :school_term do
-    term_title { "First Term" }
-    school_year
+    title { "First Term" }
   end
 
   factory :school_year do
@@ -26,11 +35,6 @@ FactoryBot.define do
     title { "Mathematics" }
   end
 
-  factory :subscribed_subject do
-    user
-    grade_level
-  end
-
   factory :user do
     full_name { Faker::Name.name }
     email { Faker::Internet.email }
@@ -38,11 +42,5 @@ FactoryBot.define do
     password_confirmation { '123456' }
     role { "student" }
     disabled { false }
-  end
-
-  factory :yearly_grade_level do
-    user
-    grade_level
-    school_year
   end
 end

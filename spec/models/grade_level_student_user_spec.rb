@@ -1,5 +1,5 @@
 require 'rails_helper'
 
-RSpec.describe YearlyGradeLevel, type: :model do
+RSpec.describe GradeLevelStudentUser, type: :model do
   pending "add some examples to (or delete) #{__FILE__}"
 end

@@ -7,6 +7,10 @@ class ProfilesController < ApplicationController
   def show
   end
 
+  def session_details
+    @grade_level = GradeLevel.includes(:school_terms)&.find(params[:grade_level])
+  end
+
 
   private
 

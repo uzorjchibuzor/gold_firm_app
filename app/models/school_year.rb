@@ -3,7 +3,6 @@
 class SchoolYear < ApplicationRecord
   before_save :set_clean_year_title
 
-  has_many :school_terms, dependent: :destroy
   has_many :grade_levels, dependent: :destroy
 
   validates :start_year, presence: true
@@ -14,10 +13,6 @@ class SchoolYear < ApplicationRecord
   default_scope { order(start_year: :desc) }
 
   # Ex:- scope :active, -> {where(:active => true)}
-
-  after_save do |school_year|
-    SchoolTermsCreationService.new(school_year).call
-  end
 
   private
 

@@ -50,7 +50,7 @@ class Admin::ManageUsersController < ApplicationController
 
   def unenroll_user
     @user = User.find(params[:user_id])
-    class_subcription = @user.yearly_grade_levels.find_by(user_id: params[:user_id], school_year_id: params[:school_year_id])
+    class_subcription = @user.grade_level_student_users.find_by(grade_level_id: params[:grade_level_id])
     class_subcription.destroy
     redirect_to show_profile_path(id: @user.id), notice: "#{@user.full_name} has been successfully unenrolled."
   end
@@ -77,9 +77,9 @@ class Admin::ManageUsersController < ApplicationController
     @current_session_year ||= SchoolYear.find_by_title(params[:school_session])
   end
 
-  def set_enrolled_class(level, school_year)
+  def set_enrolled_class(level, _school_year)
     @user = User.find(params[:user_id])
-    @user.yearly_grade_levels.create!(grade_level_id: level.id, school_year_id: school_year.id)
+    @user.grade_level_student_users.create!(user_id: @user, grade_level_id: level.id)
     SubjectsSubscriptionService.new(level).call
   end
 

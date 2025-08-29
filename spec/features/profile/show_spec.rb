@@ -6,8 +6,9 @@ RSpec.describe "User Profile Show page", type: :feature do
     let!(:student_user_2) { create(:user, role: "student") }
     let!(:admin_user) { create(:user, role: "admin") }
     let!(:school_year) { create(:school_year) }
-    let!(:grade_level) { create(:grade_level, school_year:) }
-    let!(:yearly_grade_level) { create(:yearly_grade_level, user: student_user, grade_level:, school_year:) }
+    let!(:grade_level) { create(:grade_level, school_year: school_year) }
+    let!(:school_term) { create(:school_term) }
+    let!(:grade_level_student_user) { create(:grade_level_student_user, grade_level:, user: student_user) }
 
     context "when the user is not an admin" do
       before do
@@ -52,11 +53,11 @@ RSpec.describe "User Profile Show page", type: :feature do
         click_on "Unenroll #{student_user.full_name}"
 
         expect(page).to have_content("#{student_user.full_name} has been successfully unenrolled")
-        expect(student_user.yearly_grade_levels.find_by(id: yearly_grade_level.id)).not_to be present?
+        expect(student_user.grade_level_student_users.find_by(id: grade_level_student_user.id)).not_to be present?
       end
 
       it "allows the admin to enroll a user for the current school year" do
-        yearly_grade_level.destroy
+        grade_level_student_user.destroy
 
         visit show_profile_path(id: student_user.id)
 
