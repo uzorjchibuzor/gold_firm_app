@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_08_29_175306) do
+ActiveRecord::Schema[7.2].define(version: 2025_08_29_201040) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,6 +20,21 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_29_175306) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["grade_level_id"], name: "index_departments_on_grade_level_id"
+  end
+
+  create_table "examinations", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "grade_level_id", null: false
+    t.bigint "subject_id", null: false
+    t.bigint "school_term_id", null: false
+    t.integer "exam_type", null: false
+    t.integer "score", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["grade_level_id"], name: "index_examinations_on_grade_level_id"
+    t.index ["school_term_id"], name: "index_examinations_on_school_term_id"
+    t.index ["subject_id"], name: "index_examinations_on_subject_id"
+    t.index ["user_id"], name: "index_examinations_on_user_id"
   end
 
   create_table "grade_level_school_terms", force: :cascade do |t|
@@ -90,6 +105,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_29_175306) do
   end
 
   add_foreign_key "departments", "grade_levels"
+  add_foreign_key "examinations", "grade_levels"
+  add_foreign_key "examinations", "school_terms"
+  add_foreign_key "examinations", "subjects"
+  add_foreign_key "examinations", "users"
   add_foreign_key "grade_level_school_terms", "grade_levels"
   add_foreign_key "grade_level_school_terms", "school_terms"
   add_foreign_key "grade_level_student_users", "grade_levels"

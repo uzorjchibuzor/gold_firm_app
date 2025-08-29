@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :examination do
+    user { nil }
+    grade_level { nil }
+    subject { nil }
+    score { 1 }
+  end
+
   factory :department do
     grade_level
     title { "General" }

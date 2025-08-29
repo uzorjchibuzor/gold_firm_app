@@ -2,6 +2,7 @@
 
 class GradeLevel < ApplicationRecord
   belongs_to :school_year
+  has_many :examinations, dependent: :destroy
   has_many :school_terms, dependent: :destroy
   has_many :grade_level_student_users, dependent: :destroy
   has_many :users, through: :grade_level_student_users
