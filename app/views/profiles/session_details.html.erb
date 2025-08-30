@@ -4,21 +4,33 @@
   Below is the progress achieved in the <%= @grade_level.school_year.title %> academic session by <%= @user.full_name %>
 </h2>
 </div>
-<table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-  <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark-bg-gray-700 dark:text-gray-400">
-    <tr>
-      <% @grade_level.school_terms.each do |term| %>
-        <th scope="col" class="px-6 py-3"><%=term.title %></th>
-      <% end %>
-    </tr>
-  </thead>
-  <tbody>
-    <% @grade_level.subjects.each do |subject| %>
-      <tr>
-        <% @grade_level.school_terms.each do |term| %>
-          <th scope="row" class="px-6 py-4"><%= subject.title %></th>
+<% @grade_level.school_terms.each do |term| %>
+  <div class="mb-5">
+    <h2 class="text-center"> <%= term.title %> </h2>
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark-bg-gray-700 dark:text-gray-400">
+        <tr>
+          <th scope="col" class="px-2 py-1">Subject</th>
+          <th scope="col" class="px-2 py-1">First Test (over 20)</th>
+          <th scope="col" class="px-2 py-1">Second Test (over 20)</th>
+          <th scope="col" class="px-2 py-1">Examination (over 60)</th>
+          <th scope="col" class="px-2 py-1">Total (over 100)</th>
+          <th scope="col" class="px-2 py-1">Letter Grade</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @grade_level.subjects.each do |subject|%>
+          <tr>
+            <th scope="row" class="px-6 py-4"><%= subject.title %></th>
+
+            <th scope="row" class="px-6 py-4"><%= find_score_by_type(@examinations, :first_test, subject, term) %></th>
+            <th scope="row" class="px-6 py-4"><%= find_score_by_type(@examinations, :second_test, subject, term) %></th>
+            <th scope="row" class="px-6 py-4"><%= find_score_by_type(@examinations, :term_exam, subject, term) %></th>
+            <th scope="row" class="px-6 py-4"><%= subject_percentage_score(@examinations, subject, term)[:total_score] %></th>
+            <th scope="row" class="px-6 py-4"><%= subject_percentage_score(@examinations, subject, term)[:letter_grade] %></th>
+          </tr>
         <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      </tbody>
+    </table>
+  </div>
+<% end %>
