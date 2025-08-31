@@ -10,7 +10,7 @@ class Examination < ApplicationRecord
 
   validate :score_within_limits
 
-  validates :subject, uniqueness: { scope: [:subject_id, :grade_level_id, :school_term_id, :exam_type] }
+  validates :subject, uniqueness: { scope: [ :subject_id, :grade_level_id, :school_term_id, :exam_type ] }
 
   default_scope { order(exam_type: :asc) }
 

@@ -22,7 +22,6 @@ module ExaminationHelper
 
 
   def find_score_by_type(exam_term_subject_params, type)
-    exam_term_subject_params[:examinations].send(type).find{ |examination| examination.school_term_id == exam_term_subject_params[:term_id] && examination.subject_id == exam_term_subject_params[:subject_id]}&.score || "Not Found" 
+    exam_term_subject_params[:examinations].send(type).find { |examination| examination.school_term_id == exam_term_subject_params[:term_id] && examination.subject_id == exam_term_subject_params[:subject_id] }&.score || "Not Found"
   end
 end
-
