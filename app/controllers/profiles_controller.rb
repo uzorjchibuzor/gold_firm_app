@@ -8,8 +8,8 @@ class ProfilesController < ApplicationController
   end
 
   def session_details
-    @grade_level = GradeLevel.includes(:school_terms, :examinations)&.find(params[:grade_level])
-    @examinations = @grade_level.users.find_by(id:  @user.id)&.examinations
+    @grade_level = GradeLevel.includes(:school_terms)&.find(params[:grade_level])
+    @examinations = @grade_level.examinations.where(user_id:  @user.id)
   end
 
 

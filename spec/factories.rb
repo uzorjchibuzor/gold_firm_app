@@ -2,10 +2,12 @@
 
 FactoryBot.define do
   factory :examination do
-    user { nil }
-    grade_level { nil }
-    subject { nil }
-    score { 1 }
+    user
+    grade_level
+    subject
+    school_term
+    exam_type { "term_exam" }
+    score { 57 }
   end
 
   factory :department do
