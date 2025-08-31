@@ -14,15 +14,15 @@ module ExaminationHelper
     "A1"
   end
 
-  def subject_percentage_score(examinations, user_id, term)
-    total_score = examinations.filter { |examination| examination.school_term_id == term.id }.map(&:score).sum || "Not Ready"
+  def subject_percentage_score(exam_term_subject_params)
+    total_score = exam_term_subject_params[:examinations].filter { |examination| examination.school_term_id == exam_term_subject_params[:term_id] }.map(&:score).sum || "Not Ready"
     letter_grade = assign_letter_grade(total_score)
     { total_score:, letter_grade: }
   end
 
 
-  def find_score_by_type(examinations, type, user_id, term)
-    examinations.send(type).filter{ |examination| examination.school_term_id == term.id && examination.user_id == user_id}.first&.score || "Not Found" 
+  def find_score_by_type(exam_term_subject_params, type)
+    exam_term_subject_params[:examinations].send(type).find{ |examination| examination.school_term_id == exam_term_subject_params[:term_id] && examination.subject_id == exam_term_subject_params[:subject_id]}&.score || "Not Found" 
   end
 end
 

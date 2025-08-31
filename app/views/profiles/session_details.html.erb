@@ -20,14 +20,14 @@
       </thead>
       <tbody>
         <% @subjects.each do |subject|%>
-          <% examinations = subject.examinations %>
+          <% exam_term_subject_params = {examinations: @examinations, term_id: term.id, subject_id: subject.id} %>
           <tr>
             <th scope="row" class="px-6 py-4"><%= subject.title %></th>
-            <th scope="row" class="px-6 py-4"><%= find_score_by_type(examinations, :first_test, @user.id, term) %></th>
-            <th scope="row" class="px-6 py-4"><%= find_score_by_type(examinations, :second_test, @user.id, term) %></th>
-            <th scope="row" class="px-6 py-4"><%= find_score_by_type(examinations, :term_exam, @user.id, term) %></th>
-            <th scope="row" class="px-6 py-4"><%= subject_percentage_score(examinations, @user.id, term)[:total_score]%></th>
-            <th scope="row" class="px-6 py-4"><%= subject_percentage_score(examinations, @user.id, term)[:letter_grade] %></th>
+            <th scope="row" class="px-6 py-4"><%= find_score_by_type(exam_term_subject_params, :first_test) %></th>
+            <th scope="row" class="px-6 py-4"><%= find_score_by_type(exam_term_subject_params, :second_test) %></th>
+            <th scope="row" class="px-6 py-4"><%= find_score_by_type(exam_term_subject_params, :term_exam) %></th>
+            <th scope="row" class="px-6 py-4"><%= subject_percentage_score(exam_term_subject_params)[:total_score]%></th>
+            <th scope="row" class="px-6 py-4"><%= subject_percentage_score(exam_term_subject_params)[:letter_grade] %></th>
           </tr>
         <% end %>
       </tbody>
