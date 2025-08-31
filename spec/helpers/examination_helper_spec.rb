@@ -17,19 +17,24 @@ RSpec.describe ExaminationHelper, type: :helper do
 
   describe "#find_score_by_type" do
     let!(:user) { create(:user) }
+    let!(:user_2) { create(:user) }
     let!(:grade_level) { create(:grade_level) }
     let!(:subject) { create(:subject, grade_level:) }
     let!(:school_term) { create(:school_term) }
     let!(:examination) { create(:examination, user:, grade_level:, subject:, school_term:, exam_type: "first_test", score: 19) }
     let!(:examination_2) { create(:examination, user:, grade_level:, subject:, school_term:, exam_type: "term_exam", score: 48) }
-
     it "returns the score obtained by a student in an subject examination type" do
-      expect(helper.find_score_by_type(Examination.all, "first_test", subject, school_term)).to eq(19)
-      expect(helper.find_score_by_type(Examination.all, "term_exam", subject, school_term)).to eq(48)
+      expect(helper.find_score_by_type(Examination.all, "first_test", user.id, school_term)).to eq(19)
+      expect(helper.find_score_by_type(Examination.all, "term_exam", user.id, school_term)).to eq(48)
     end
+
+    it "returns a NOT FOUND string if the exam object is not found" do
+      expect(helper.find_score_by_type(Examination.all, "first_test", user_2.id, school_term)).to eq("Not Found")
+    end
+    
   end
 
-  describe "subject_percentage_score(examinations, subject, term)" do
+  describe "subject_percentage_score" do
     let!(:user) { create(:user) }
     let!(:grade_level) { create(:grade_level) }
     let!(:subject) { create(:subject, grade_level:) }
@@ -40,7 +45,7 @@ RSpec.describe ExaminationHelper, type: :helper do
 
     it "returns a hash with percentage score and equivalent letter grade" do
       examinations = Examination.where(user_id: user.id)
-      expect(helper.subject_percentage_score(examinations, subject, school_term)).to eq({ total_score: 82, letter_grade: "A1" })
+      expect(helper.subject_percentage_score(examinations, user.id, school_term)).to eq({ total_score: 82, letter_grade: "A1" })
     end
   end
 end

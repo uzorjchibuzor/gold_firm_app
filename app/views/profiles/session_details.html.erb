@@ -4,7 +4,7 @@
   Below is the progress achieved in the <%= @grade_level.school_year.title %> academic session by <%= @user.full_name %>
 </h2>
 </div>
-<% @grade_level.school_terms.each do |term| %>
+<% @school_terms.each do |term| %>
   <div class="mb-5">
     <h2 class="text-center"> <%= term.title %> </h2>
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -19,15 +19,15 @@
         </tr>
       </thead>
       <tbody>
-        <% @grade_level.subjects.each do |subject|%>
+        <% @subjects.each do |subject|%>
+          <% examinations = subject.examinations %>
           <tr>
             <th scope="row" class="px-6 py-4"><%= subject.title %></th>
-
-            <th scope="row" class="px-6 py-4"><%= find_score_by_type(@examinations, :first_test, subject, term) %></th>
-            <th scope="row" class="px-6 py-4"><%= find_score_by_type(@examinations, :second_test, subject, term) %></th>
-            <th scope="row" class="px-6 py-4"><%= find_score_by_type(@examinations, :term_exam, subject, term) %></th>
-            <th scope="row" class="px-6 py-4"><%= subject_percentage_score(@examinations, subject, term)[:total_score] %></th>
-            <th scope="row" class="px-6 py-4"><%= subject_percentage_score(@examinations, subject, term)[:letter_grade] %></th>
+            <th scope="row" class="px-6 py-4"><%= find_score_by_type(examinations, :first_test, @user.id, term) %></th>
+            <th scope="row" class="px-6 py-4"><%= find_score_by_type(examinations, :second_test, @user.id, term) %></th>
+            <th scope="row" class="px-6 py-4"><%= find_score_by_type(examinations, :term_exam, @user.id, term) %></th>
+            <th scope="row" class="px-6 py-4"><%= subject_percentage_score(examinations, @user.id, term)[:total_score]%></th>
+            <th scope="row" class="px-6 py-4"><%= subject_percentage_score(examinations, @user.id, term)[:letter_grade] %></th>
           </tr>
         <% end %>
       </tbody>

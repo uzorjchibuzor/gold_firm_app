@@ -2,6 +2,7 @@
 
 module ExaminationHelper
   def assign_letter_grade(score)
+    return "No Score" if score.nil?
     return "F9" if (00..39).include? score
     return "E8" if (40..44).include? score
     return "D7" if (45..49).include? score
@@ -13,13 +14,15 @@ module ExaminationHelper
     "A1"
   end
 
-  def subject_percentage_score(examinations, subject, term)
-    total_score = examinations.where(subject_id: subject.id, school_term: term.id).pluck(:score).sum || "Not Ready"
+  def subject_percentage_score(examinations, user_id, term)
+    total_score = examinations.filter { |examination| examination.school_term_id == term.id }.map(&:score).sum || "Not Ready"
     letter_grade = assign_letter_grade(total_score)
     { total_score:, letter_grade: }
   end
 
-  def find_score_by_type(examinations, type, subject, term)
-    examinations.send(type).find_by(subject_id: subject.id, school_term_id: term.id)&.score || "AW"
+
+  def find_score_by_type(examinations, type, user_id, term)
+    examinations.send(type).filter{ |examination| examination.school_term_id == term.id && examination.user_id == user_id}.first&.score || "Not Found" 
   end
 end
+
