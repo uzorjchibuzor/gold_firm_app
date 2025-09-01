@@ -1,4 +1,3 @@
-
 <div class="container text-center text-red-400 mb-5">
   <h2>
   Below is the progress achieved in the <%= @grade_level.school_year.title %> academic session by <%= @user.full_name %>
@@ -20,12 +19,15 @@
       </thead>
       <tbody>
         <% @subjects.each do |subject|%>
-          <% exam_term_subject_params = {examinations: @examinations, term_id: term.id, subject_id: subject.id} %>
+          <% exam_term_subject_params = {user_id: @user.id, examinations: @examinations, school_term_id: term.id, subject_id: subject.id, grade_level_id: @grade_level.id} %>
           <tr>
             <th scope="row" class="px-6 py-4"><%= subject.title %></th>
-            <th scope="row" class="px-6 py-4"><%= find_score_by_type(exam_term_subject_params, :first_test) %></th>
-            <th scope="row" class="px-6 py-4"><%= find_score_by_type(exam_term_subject_params, :second_test) %></th>
-            <th scope="row" class="px-6 py-4"><%= find_score_by_type(exam_term_subject_params, :term_exam) %></th>
+            <th scope="row" class="px-6 py-4"><%= find_score_by_type("first_test", exam_term_subject_params) %>
+            <%= action_button_for_examination("first_test", exam_term_subject_params) %></th>
+            <th scope="row" class="px-6 py-4"><%= find_score_by_type("second_test", exam_term_subject_params) %>
+            <%= action_button_for_examination("second_test", exam_term_subject_params) %></th>
+            <th scope="row" class="px-6 py-4"><%= find_score_by_type("term_exam", exam_term_subject_params) %>
+            <%= action_button_for_examination("term_exam", exam_term_subject_params) %></th>
             <th scope="row" class="px-6 py-4"><%= subject_percentage_score(exam_term_subject_params)[:total_score]%></th>
             <th scope="row" class="px-6 py-4"><%= subject_percentage_score(exam_term_subject_params)[:letter_grade] %></th>
           </tr>

@@ -1,7 +1,6 @@
 @tailwind base;
 @tailwind components;
 
-
 .flash {
   position: fixed;
   top: 5rem;
@@ -55,5 +54,23 @@
 .ml-mr-auto {
   margin-left: auto;
   margin-right: auto;
+}
+
+.error-message {
+  background-color: #f867da;
+  color: #721c24;
+  border: 1px solid#f5c6cb;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.error-message::before{
+  content: "⚠️ ";
+  margin-right: 5px;
 }
 @tailwind utilities;

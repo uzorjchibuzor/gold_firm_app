@@ -18,6 +18,6 @@ class ProfilesController < ApplicationController
   private
 
   def assign_user
-    @user = current_user.admin? ? User.find(params[:id]) : current_user
+    @user = (current_user.admin? || current_user.teacher?) ? User.find(params[:id]) : current_user
   end
 end

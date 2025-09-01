@@ -2,7 +2,7 @@
 
 class Admin::ManageUsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :is_user_admin?
+  before_action :is_user_admin?, except: [:index]
   before_action :set_current_school_session, only: [ :enroll_user ]
 
   def create

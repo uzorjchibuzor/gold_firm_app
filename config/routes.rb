@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
+  resources :examinations
   devise_for :users
 
   get "users/:id", to: "profiles#show", as: "show_profile"

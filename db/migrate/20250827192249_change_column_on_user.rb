@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChangeColumnOnUser < ActiveRecord::Migration[7.2]
   def change
     remove_column :users, :current_class

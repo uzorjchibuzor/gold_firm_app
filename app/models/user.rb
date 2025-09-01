@@ -4,6 +4,7 @@ class User < ApplicationRecord
   has_many :grade_level_student_users, dependent: :destroy
   has_many :grade_levels, through: :grade_level_student_users
   has_many :examinations, dependent: :destroy
+  has_many :created_exams, class_name: "Exam", foreign_key: :created_by, dependent: :destroy
   before_save { |user| user.full_name = user.full_name.titleize }
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable

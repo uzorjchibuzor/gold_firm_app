@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateGradeLevelSchoolTerms < ActiveRecord::Migration[7.2]
   def change
     create_table :grade_level_school_terms do |t|

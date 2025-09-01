@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_08_31_002508) do
+ActiveRecord::Schema[7.2].define(version: 2025_08_31_184831) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -31,7 +31,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_31_002508) do
     t.integer "score", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "created_by", default: "", null: false
+    t.bigint "creator_id", null: false
+    t.index ["creator_id"], name: "index_examinations_on_creator_id"
     t.index ["grade_level_id"], name: "index_examinations_on_grade_level_id"
     t.index ["school_term_id"], name: "index_examinations_on_school_term_id"
     t.index ["subject_id"], name: "index_examinations_on_subject_id"
@@ -110,6 +111,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_31_002508) do
   add_foreign_key "examinations", "school_terms"
   add_foreign_key "examinations", "subjects"
   add_foreign_key "examinations", "users"
+  add_foreign_key "examinations", "users", column: "creator_id"
   add_foreign_key "grade_level_school_terms", "grade_levels"
   add_foreign_key "grade_level_school_terms", "school_terms"
   add_foreign_key "grade_level_student_users", "grade_levels"

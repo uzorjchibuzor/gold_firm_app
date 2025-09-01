@@ -8,6 +8,7 @@ FactoryBot.define do
     school_term
     exam_type { "term_exam" }
     score { 57 }
+    creator { user }
   end
 
   factory :department do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe ExaminationHelper, type: :helper do
@@ -10,8 +12,8 @@ RSpec.describe ExaminationHelper, type: :helper do
     let!(:examination) { create(:examination, user:, grade_level:, subject:, school_term:, exam_type: "first_test", score: 19) }
     let!(:examination_2) { create(:examination, user:, grade_level:, subject:, school_term:, exam_type: "second_test", score: 15) }
     let!(:examination_3) { create(:examination, user:, grade_level:, subject:, school_term:, exam_type: "term_exam", score: 48) }
-    let!(:exam_term_subject_params) {{ examinations: Examination.all, term_id: school_term.id, subject_id: subject.id }}
-    let!(:bad_exam_term_subject_params) {{ examinations: Examination.where(user_id: user_2.id), term_id: school_term.id, subject_id: subject.id }}
+    let!(:exam_term_subject_params) { { examinations: Examination.all, school_term_id: school_term.id, subject_id: subject.id } }
+    let!(:bad_exam_term_subject_params) { { examinations: Examination.where(user_id: user_2.id), term_id: school_term.id, subject_id: subject.id } }
     describe "#assign_letter_grade" do
       it "returns corresponding letter grade for a variety of scores from 0 to 100" do
         expect(helper.assign_letter_grade(39)).to eq("F9")
@@ -27,16 +29,16 @@ RSpec.describe ExaminationHelper, type: :helper do
     end
 
     describe "#find_score_by_type" do
-
       it "returns the score obtained by a student in an subject examination type" do
-        expect(helper.find_score_by_type(exam_term_subject_params, "first_test")).to eq(19)
-        expect(helper.find_score_by_type(exam_term_subject_params, "term_exam")).to eq(48)
+        # binding.pry
+
+        expect(helper.find_score_by_type("first_test", exam_term_subject_params)).to eq(19)
+        expect(helper.find_score_by_type("term_exam", exam_term_subject_params)).to eq(48)
       end
 
       it "returns a NOT FOUND string if the exam object is not found" do
-        expect(helper.find_score_by_type(bad_exam_term_subject_params, "first_test")).to eq("Not Found")
+        expect(helper.find_score_by_type("first_test", bad_exam_term_subject_params)).to eq("Not Found")
       end
-
     end
 
     describe "subject_percentage_score" do
