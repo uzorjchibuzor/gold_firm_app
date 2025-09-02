@@ -31,6 +31,7 @@ class ExaminationsController < ApplicationController
 
   def update
     @examination = Examination.find_by(id: params[:id])
+    @examination.updater_id = current_user.id
     if @examination.update(exam_params)
       redirect_to examinations_path, notice: "Exam score for updated successfully"
     else

@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :examination_history do
+    examination { nil }
+    updater { nil }
+  end
+
   factory :examination do
     user
     grade_level

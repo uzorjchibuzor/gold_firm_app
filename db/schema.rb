@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_08_31_184831) do
+ActiveRecord::Schema[7.2].define(version: 2025_09_01_201957) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,6 +20,16 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_31_184831) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["grade_level_id"], name: "index_departments_on_grade_level_id"
+  end
+
+  create_table "examination_histories", force: :cascade do |t|
+    t.bigint "examination_id", null: false
+    t.bigint "user_id", null: false
+    t.text "changes_made", default: ""
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["examination_id"], name: "index_examination_histories_on_examination_id"
+    t.index ["user_id"], name: "index_examination_histories_on_user_id"
   end
 
   create_table "examinations", force: :cascade do |t|
@@ -107,6 +117,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_31_184831) do
   end
 
   add_foreign_key "departments", "grade_levels"
+  add_foreign_key "examination_histories", "examinations"
+  add_foreign_key "examination_histories", "users"
   add_foreign_key "examinations", "grade_levels"
   add_foreign_key "examinations", "school_terms"
   add_foreign_key "examinations", "subjects"
