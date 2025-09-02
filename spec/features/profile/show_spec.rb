@@ -7,12 +7,14 @@ RSpec.describe "User Profile Show page", type: :feature do
     let!(:student_user) { create(:user, role: "student") }
     let!(:student_user_2) { create(:user, role: "student") }
     let!(:admin_user) { create(:user, role: "admin") }
+    let!(:teacher_user) { create(:user, role: "teacher") }
     let!(:school_year) { create(:school_year) }
     let!(:grade_level) { create(:grade_level, school_year: school_year) }
     let!(:school_term) { create(:school_term) }
     let!(:grade_level_student_user) { create(:grade_level_student_user, grade_level:, user: student_user) }
+    let!(:subject) { create(:subject, grade_level:) }
 
-    context "when the user is not an admin" do
+    context "when the user is a student" do
       before do
           sign_in student_user
         end
@@ -27,7 +29,25 @@ RSpec.describe "User Profile Show page", type: :feature do
         visit show_profile_path(id: student_user.id)
 
         expect(page).not_to have_content("#{student_user_2.full_name}'s enrollment history")
-        expect(page).to have_content("#{student_user.full_name}'s enrollment history")
+        expect(page).to have_content("#{student_user.full_name}'s enrollment history, click on a session to view the records.")
+      end
+
+      context "when the user clicks on their chosen session" do
+        it "shows the scoring progress for the chosen session" do
+          visit show_profile_path(id: student_user.id)
+          click_on school_year.title
+
+          expect(page).to have_content("Below is the progress achieved in the #{school_year.title} academic session by #{student_user.full_name}")
+          expect(page).to have_content(subject.title)
+        end
+
+        it "does not show the link to create or change an exam score" do
+          visit show_profile_path(id: student_user.id)
+          click_on school_year.title
+
+          expect(page).not_to have_button("Change")
+          expect(page).not_to have_button("Create")
+        end
       end
     end
 
@@ -39,7 +59,7 @@ RSpec.describe "User Profile Show page", type: :feature do
       it "shows the whatever student the admin decides to check record for" do
         visit show_profile_path(id: student_user.id)
 
-        expect(page).to have_content("#{student_user.full_name}'s enrollment history")
+        expect(page).to have_content("This is #{student_user.full_name}'s enrollment history, click on a session to view the records.")
         expect(page).to have_content(school_year.title)
 
         visit show_profile_path(id: student_user_2.id)
@@ -71,6 +91,23 @@ RSpec.describe "User Profile Show page", type: :feature do
 
         click_on "Register"
         expect(page).to have_content("#{student_user.full_name} has been successfully enrolled")
+      end
+    end
+
+        context "when the user is a teacher" do
+      before do
+        sign_in teacher_user
+      end
+
+      it "shows the whatever student the teacher decides to check record for" do
+        visit show_profile_path(id: student_user.id)
+
+        expect(page).to have_content("This is #{student_user.full_name}'s enrollment history, click on a session to view the records.")
+        expect(page).to have_content(school_year.title)
+
+        visit show_profile_path(id: student_user_2.id)
+
+        expect(page).to have_content("#{student_user_2.full_name}'s enrollment history")
       end
     end
   end

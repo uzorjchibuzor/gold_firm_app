@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Examination < ApplicationRecord
-
   attr_accessor :updater_id
 
   belongs_to :user
@@ -16,6 +15,7 @@ class Examination < ApplicationRecord
   validate :score_within_limits
 
   validates :creator_id, presence: true
+  validates :exam_type, presence: true
   validates :subject, uniqueness: { scope: [ :subject_id, :grade_level_id, :school_term_id, :exam_type ] }
 
   default_scope { order(exam_type: :asc) }
