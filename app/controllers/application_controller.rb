@@ -12,4 +12,8 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [ :full_name, :role ])
   end
+
+  def is_user_admin_or_teacher?
+    redirect_to root_path, notice: "You must be an admin or teacher to access the requested page" unless (current_user.admin? || current_user.teacher?)
+  end
 end

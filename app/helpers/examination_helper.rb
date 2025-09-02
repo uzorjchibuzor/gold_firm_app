@@ -4,9 +4,9 @@ module ExaminationHelper
   def action_button_for_examination(type, options)
     current_exam = options[:examinations].send(type).find { |examination| examination.school_term_id == options[:school_term_id] && examination.subject_id == options[:subject_id] }
     if current_exam.present?
-      link_to "Change", edit_examination_path(id: current_exam.id), class: "px-3 py-2 bg-yellow-600 text-white font-medium text-xs leading-tight rounded shadow-md hover:bg-yellow-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out"
+      link_to "Change", edit_examination_path(id: current_exam.id), id: "examination_id_#{current_exam.id}_subject_id_#{options[:subject_id]}", class: "px-3 py-2 bg-yellow-600 text-white font-medium text-xs leading-tight rounded shadow-md hover:bg-yellow-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out"
     else
-      link_to "Create", new_examination_path(examination: { school_term_id: options[:school_term_id], subject_id: options[:subject_id], grade_level_id: options[:grade_level_id], user_id: options[:user_id], exam_type: type }), class: "px-3 py-2 bg-green-600 text-white font-medium text-xs leading-tight rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out"
+      link_to "Create", new_examination_path(examination: { school_term_id: options[:school_term_id], subject_id: options[:subject_id], grade_level_id: options[:grade_level_id], user_id: options[:user_id], exam_type: type }), id: "examination_for_subject_id_#{options[:subject_id]}", class: "px-3 py-2 bg-green-600 text-white font-medium text-xs leading-tight rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out"
     end
   end
 

@@ -24,11 +24,12 @@ class Examination < ApplicationRecord
       User.find_by(id: creator_id)
     end
 
-    before_update :log_history
+  before_update :log_history
 
   private
 
   def log_history
+    return if new_record?
     examination_histories.create(user: User.find(updater_id),
     changes_made: self.changes.to_json
     )

@@ -3,11 +3,10 @@
 require "rails_helper"
 
 RSpec.describe "Manage Users Page", type: :feature do
-  context "only a signed in user who is an admin can view this page" do
+  context "only a signed in user who is an admin or a teacher can view this page" do
     let!(:student_user) { create(:user, role: "student") }
     let!(:teacher_user) { create(:user, role: "teacher") }
     let!(:admin_user) { create(:user, role: "admin") }
-
 
     context "When user not signed in" do
       it "redirects the user to the home page to login or sign up" do
@@ -21,16 +20,19 @@ RSpec.describe "Manage Users Page", type: :feature do
         sign_in student_user
 
         visit admin_manage_users_path
-        expect(page).to have_content("You must be an admin to access the requested page")
+        expect(page).to have_content("You must be an admin or teacher to access the requested page")
       end
     end
 
     context "When signed in user is a teacher" do
-      it "alerts the user that only an admin is allowed" do
+      it "shows the registered users are listed only without links to edit" do
         sign_in teacher_user
 
         visit admin_manage_users_path
-        expect(page).to have_content("You must be an admin to access the requested page")
+        expect(page).to have_content("You may click on the user you want to manage from the table below")
+        expect(page).to have_link(student_user.full_name)
+        expect(page).not_to have_link("Edit")
+        expect(page).not_to have_link("Create User")
       end
     end
 
@@ -39,7 +41,7 @@ RSpec.describe "Manage Users Page", type: :feature do
         sign_in admin_user
         visit admin_manage_users_path
       end
-      it "shows the registered users are listed with a link to edit to edit the profile/go to the user show page" do
+      it "shows the registered users are listed with a link to edit the profile/go to the user show page" do
         expect(page).to have_content("You may click on the user you want to manage from the table below")
         expect(page).to have_link(student_user.full_name)
         expect(page).to have_link("Edit")

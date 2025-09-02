@@ -40,9 +40,6 @@ class ExaminationsController < ApplicationController
   end
 
   private
-  def is_user_admin_or_teacher?
-    redirect_to root_path unless current_user.admin? || current_user.teacher?
-  end
 
   def exam_params
     params.require(:examination).permit(:exam_type, :school_term_id, :subject_id, :grade_level_id, :user_id, :score)
