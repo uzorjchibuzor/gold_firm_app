@@ -26,9 +26,9 @@ RSpec.describe ExaminationHelper, type: :helper do
 
       context "when the examination object does not exist" do
         it "displays a Create Button" do
-          change_button = helper.action_button_for_examination("first_test", bad_exam_term_subject_params)
-          expect(change_button).to include("Create")
-          expect(change_button).to include("examination_for_subject_id_#{subject_2.id}")
+          create_button = helper.action_button_for_examination("first_test", bad_exam_term_subject_params)
+          expect(create_button).to include("Create")
+          expect(create_button).to include("examination_for_subject_id_#{subject_2.id}")
         end
       end
     end
