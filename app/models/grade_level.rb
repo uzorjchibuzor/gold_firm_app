@@ -14,7 +14,7 @@ class GradeLevel < ApplicationRecord
 
   validates :title, presence: true, uniqueness: { scope: :school_year_id }
 
-  # default_scope { includes(:school_year).order("school_years.title DESC") }
+  default_scope { includes(:school_year).order("school_years.title DESC") }
   JUNIOR_GRADES = [ "JSS 1", "JSS 2", "JSS 3" ]
   SENIOR_GRADES = [ "SSS 1 ARTS", "SSS 1 COMMERCIAL", "SSS 1 SCIENCES", "SSS 2 ARTS", "SSS 2 COMMERCIAL", "SSS 2 SCIENCES", "SSS 3 ARTS", "SSS 3 COMMERCIAL", "SSS 3 SCIENCES" ]
   GRADE_TITLES = [ *JUNIOR_GRADES, *SENIOR_GRADES ]

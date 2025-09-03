@@ -1,7 +1,17 @@
 class AttendancesController < ApplicationController
 
   def index
-    @attendances = Attendance.all
+    @students = current_user.grade_levels.first.users.student
+    @chosen_date = params[:date].to_date
+    if @chosen_date
+      start_of_week = @chosen_date&.beginning_of_week
+      @current_week_days = (0..4).map { |increment| (start_of_week + increment) }
+      @attendances = Attendance.where(date: @current_week_days, user_id: @students.ids)
+    else 
+      start_of_week = Date.today.beginning_of_week
+      @current_week_days = (0..4).map { |increment| (start_of_week + increment) }
+      @attendances = Attendance.where(date: @current_week_days, user_id: @students.ids)
+    end
   end
 
   def new
@@ -33,5 +43,9 @@ class AttendancesController < ApplicationController
 
   def attendance_params
     params.require(:attendance).permit!
+  end
+
+  def current_week_days
+    (0..4).map {|day| (Date.today.beginning_of_week + day).to_s }
   end
 end
