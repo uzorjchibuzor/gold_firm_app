@@ -1,0 +1,20 @@
+<h1>Mark Attendance for <%= "#{@grade_level.school_year.title} #{@grade_level.title}" %></h1>
+<%= form_with model: @attendance, local: true do |form|%>
+  <%= form.hidden_field :grade_level, value: @grade_level.id %>
+  <div>
+    <%= form.label :date %>
+    <%= form.date_field :date %>
+  </div>
+  <h2>
+    Students
+  </h2>
+  <% @students.each do |student| %>
+    <div>
+      <%= form.label "student_id_#{student.id}_status", student.full_name %>
+      <%= form.select "student_id_#{student.id}_status", Attendance.statuses.keys.map { |key| [key.humanize, key] } %>
+    </div>
+  <% end %>
+  <div>
+    <%= form.submit "Submit Attendance" %>
+  </div>
+<% end %>
