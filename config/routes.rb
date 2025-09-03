@@ -19,6 +19,12 @@ Rails.application.routes.draw do
   post "admin/manage_users/unenroll_user", to: "admin/manage_users#unenroll_user", as: "unenroll_user"
   post "admin/manage_users/disable_user", to: "admin/manage_users#disable_user", as: "disable_user"
   namespace :admin do
+    get "school_years/create"
+    get "school_years/destroy"
+    get "school_years/edit"
+    get "school_years/index"
+    get "school_years/new"
+    get "school_years/update"
     resources :manage_users
   end
   # Admin Routes Ends

@@ -14,10 +14,8 @@ puts "Starts Transaction"
 ActiveRecord::Base.transaction do
   User.create!(email: "cefedigbuej@gmail.com", role: "admin", full_name: "Uzor Lawrence", password: "123456", password_confirmation: "123456")
   User.create!(email: "example@gmail.com", role: "student", full_name: "Lekan Abioye", password: "123456", password_confirmation: "123456")
+  User.create!(email: "example@gmail.com", role: "student", full_name: "Badmus Qudus", password: "123456", password_confirmation: "123456")
   User.create!(email: "example_2@gmail.com", role: "student", full_name: "Moriyanu Kolawole", password: "123456", password_confirmation: "123456")
-  User.create!(email: "sample@gmail.com", role: "teacher", full_name: "Qudus Badmus", password: "123456", password_confirmation: "123456")
-
-  SchoolYear.create!(start_year: "2024", end_year: "2025")
-  SchoolYear.create!(start_year: "2025", end_year: "2026")
+  User.create!(email: "sample@gmail.com", role: "teacher", full_name: "Margaret Shittu", password: "123456", password_confirmation: "123456")
 end
 p "Ends Transaction"

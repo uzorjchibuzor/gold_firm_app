@@ -10,4 +10,5 @@ class SchoolTermsCreationService
       @grade_level.school_terms.create!(title: title)
     end
   end
+
 end
