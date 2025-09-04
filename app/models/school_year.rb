@@ -12,12 +12,10 @@ class SchoolYear < ApplicationRecord
 
   default_scope { order(start_year: :desc) }
 
-  # Ex:- scope :active, -> {where(:active => true)}
-
   private
 
   def start_year_must_be_one_less_than_end_year
-   errors.add(:start_year, "Must be one less than End Year") unless start_year.to_i + 1 === end_year.to_i
+    errors.add(:start_year, "Must be one less than End Year") unless start_year.to_i + 1 === end_year.to_i
   end
 
   def set_clean_year_title
