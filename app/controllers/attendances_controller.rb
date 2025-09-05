@@ -29,12 +29,12 @@ class AttendancesController < ApplicationController
         rescue ActiveRecord::RecordInvalid => e
           @attendance = Attendance.new
           flash.now[:alert] = "Error Saving attendance for #{student.full_name}: #{e.record.errors.full_messages.join(', ')}"
-          render :new, status: :unprocessable_entity and return
+          render :new, status: :unprocessable_entity
 
         rescue => e
           @attendance = Attendance.new
           flash.now[:alert] = "An unexpected error occured: #{e.message}}"
-          render :new, status: :unprocessable_entity and return
+          render :new, status: :unprocessable_entity
         end
       end
     end

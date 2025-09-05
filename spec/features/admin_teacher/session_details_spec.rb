@@ -45,8 +45,8 @@ RSpec.describe "Session details operations", type: :feature do
 
     context "when the current user is an admin/teacher" do
       before do
-        current_user = [ admin_user, teacher_user ].sample
-        sign_in current_user
+        @current_user = [ admin_user, teacher_user ].sample
+        sign_in @current_user
         visit show_profile_path(id: student_user.id)
         click_on school_year.title
       end

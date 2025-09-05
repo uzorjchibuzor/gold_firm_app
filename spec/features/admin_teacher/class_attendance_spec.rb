@@ -51,8 +51,8 @@ RSpec.describe "Attendance Taking Operations", type: :feature do
             it "sends the user to a page with the students in the selected grade_level" do
               click_on "take_attendance_button_class_id_#{grade_level.id}"
 
-              expect(page).not_to have_content(student_user.full_name)
-              expect(page).not_to have_content(grade_level.title)
+              expect(page).to have_content(student_user.full_name)
+              expect(page).to have_content(grade_level.title)
             end
           end
           context "when the user selects the attendance option for the chosen date from the dropdown and submits" do
