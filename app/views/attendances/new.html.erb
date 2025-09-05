@@ -3,7 +3,7 @@
   <%= form.hidden_field :grade_level, value: @grade_level.id %>
   <div class="form-group">
     <%= form.label :date, class: 'form-label inline-block mb-2 text-sm font-medium text-gray-700'%>
-    <%= form.date_field :date, class: "border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
+    <%= form.date_field :date, value: Date.today, class: "border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
   </div>
   <h2>
     Students

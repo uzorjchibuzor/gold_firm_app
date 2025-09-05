@@ -21,7 +21,7 @@
           <th scope="row" class="px-6 py-4"><%= student.full_name %></th>
           <th scope="row" class="px-6 py-4"><%= grade_level.title %></th>
           <% @current_week_days.each do |week_day| %>
-            <th><%= @attendances.find { |attendance| attendance.user_id == student.id && attendance.date == week_day }&.status&.titleize || "Not Found"  %></th>
+            <th><%= student.attendances.find { |attendance| attendance.date == week_day }&.status&.titleize || "Not Found"  %></th>
           <% end %>
         </tr>
       <% end %>

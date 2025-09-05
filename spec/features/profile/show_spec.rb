@@ -86,7 +86,7 @@ RSpec.describe "User Profile Show page", type: :feature do
         expect(page).to have_content("Complete the form below to enroll this user for the current session.")
         expect(page).to have_button("Register")
 
-        select "SSS 3", from: "desired_class"
+        select "SSS 3 SCIENCES", from: "desired_class"
         select school_year.title, from: "school_session"
 
         click_on "Register"
@@ -94,7 +94,7 @@ RSpec.describe "User Profile Show page", type: :feature do
       end
     end
 
-        context "when the user is a teacher" do
+    context "when the user is a teacher" do
       before do
         sign_in teacher_user
       end

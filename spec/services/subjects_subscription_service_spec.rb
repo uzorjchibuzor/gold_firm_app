@@ -14,10 +14,10 @@ RSpec.describe SubjectsSubscriptionService do
       end
 
       context "when the enrolled grade is in Junior Secondary" do
-        let!(:grade_level) { create(:grade_level, title: "SSS 3") }
+        let!(:grade_level) { create(:grade_level, title: "SSS 2 ARTS") }
         it "checks if the grade subjects are available, creates them if they aren't" do
           service = SubjectsSubscriptionService.new(grade_level)
-          expect { service.call }.to change(Subject, :count).by(SubjectsSubscriptionService::JUNIOR_SUBJECTS.count)
+          expect { service.call }.to change(Subject, :count).by([ *SubjectsSubscriptionService::GENERAL_SENIOR_SUBJECTS, *SubjectsSubscriptionService::ARTS_SUBJECTS ].count)
         end
       end
     end
