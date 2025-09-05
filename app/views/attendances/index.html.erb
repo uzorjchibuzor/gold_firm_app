@@ -1,6 +1,6 @@
 <%= form_with url: attendances_url, method: "get" do |form| %>
   <%= form.label :date, "Enter any date for the week:  ", class: "mb-2 text-sm font-medium text-gray-700" %>
-  <%= form.date_field :date, value: Date.today.to_s, class: "border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
+  <%= form.date_field :date, value: params[:date].to_s, class: "border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
   <%= form.submit "Get Week", class: "mb-5 px-3 py-2 bg-green-600 text-white font-medium text-xs leading-tight rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out" %>
 <% end %>
 
@@ -21,7 +21,9 @@
           <th scope="row" class="px-6 py-4"><%= student.full_name %></th>
           <th scope="row" class="px-6 py-4"><%= grade_level.title %></th>
           <% @current_week_days.each do |week_day| %>
-            <th><%= student.attendances.find { |attendance| attendance.date == week_day }&.status&.titleize || "Not Found"  %></th>
+            <th id=<%="student_#{student.id}_#{week_day}"%>>
+              <%= student.attendances.find { |attendance| attendance.date == week_day }&.status&.titleize || "Not Found"  %>
+            </th>
           <% end %>
         </tr>
       <% end %>

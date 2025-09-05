@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class AttendancesController < ApplicationController
+  before_action :is_user_admin_or_teacher?
   def index
     school_year = SchoolYear.includes(grade_levels: :users).find_by(id: params[:school_year]) || SchoolYear.first
     @grade_levels = school_year.grade_levels.includes(users: :attendances)
@@ -22,16 +23,22 @@ class AttendancesController < ApplicationController
     @students = @grade_level.users.student
     Attendance.transaction do
       @students.each do |student|
-      status = attendance_params["student_id_#{student.id}_status"]
-      @attendance = Attendance.create!(user_id: student.id, date: date, status:, grade_level: @grade_level)
+        status = attendance_params["student_id_#{student.id}_status"]
+        begin
+          Attendance.create!(user_id: student.id, date: date, status:, grade_level: @grade_level)
+        rescue ActiveRecord::RecordInvalid => e
+          @attendance = Attendance.new
+          flash.now[:alert] = "Error Saving attendance for #{student.full_name}: #{e.record.errors.full_messages.join(', ')}"
+          render :new, status: :unprocessable_entity and return
+
+        rescue => e
+          @attendance = Attendance.new
+          flash.now[:alert] = "An unexpected error occured: #{e.message}}"
+          render :new, status: :unprocessable_entity and return
+        end
       end
-    rescue
-      @attendance = Attendance.new
-      @grade_level = GradeLevel.find(attendance_params[:grade_level])
-      @students = @grade_level.users.student
-      return render :new, status: :unprocessable_entity
     end
-    redirect_to attendances_path, notice: "Attendance for #{date} was successfully recorded."
+    redirect_to attendances_path(date: date), notice: "Attendance for #{date} was successfully recorded."
   end
 
   def update
