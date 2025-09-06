@@ -46,6 +46,7 @@ group :development, :test do
   gem "brakeman", require: false
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
+  gem "rubocop", require: false
   gem "rubocop-rails-omakase", require: false
   gem "factory_bot_rails"
   gem "faker"
@@ -59,7 +60,7 @@ group :development do
   gem "bullet"
 
   # Highlight the fine-grained location where an error occurred [https://github.com/ruby/error_highlight]
-  gem "error_highlight", ">= 0.4.0", platforms: [ :ruby ]
+  # gem "error_highlight", platforms: [ :ruby ]
 end
 
 group :test do

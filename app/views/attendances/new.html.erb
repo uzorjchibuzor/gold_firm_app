@@ -1,0 +1,20 @@
+<h1>Mark Attendance for <%= "#{@grade_level.school_year.title} #{@grade_level.title}" %></h1>
+<%= form_with model: @attendance, local: true, class: "flex flex-col mb-4" do |form|%>
+  <%= form.hidden_field :grade_level, value: @grade_level.id %>
+  <div class="form-group">
+    <%= form.label :date, class: 'form-label inline-block mb-2 text-sm font-medium text-gray-700'%>
+    <%= form.date_field :date, value: Date.today, class: "border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
+  </div>
+  <h2>
+    Students
+  </h2>
+  <% @students.each do |student| %>
+    <div>
+      <%= form.label "student_id_#{student.id}_status", student.full_name, class: "mb-2 text-sm font-medium text-gray-700" %>
+      <%= form.select "student_id_#{student.id}_status", Attendance.statuses.keys.map { |key| [key.humanize, key] }, {}, class: "mb-2 border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"  %>
+    </div>
+  <% end %>
+  <div>
+    <%= form.submit "Submit Attendance", class: "mb-5 px-3 py-2 bg-green-600 text-white font-medium text-xs leading-tight rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out" %>
+  </div>
+<% end %>

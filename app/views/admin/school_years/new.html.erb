@@ -1,0 +1,30 @@
+<div class="ml-mr-auto max-w-sm">
+  <h2 class="text-center my-5">Create New Schoo Session Year</h2>
+  <%= form_with model: @school_year, url: admin_school_years_path do |form| %>
+    <% if @school_year.errors.any? %>
+      <div id="error_explantion">
+        <h2><%= pluralize(@school_year.errors.count, "error") %> prohibited this user from being created.</h2>
+        <ul>
+          <% @school_year.errors.full_messages.each do |message| %>
+            <li class="error-message">
+              <%= message %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="form-group mb-6">
+      <div class="field">
+        <%= form.label :start_year, class: 'form-label inline-block mb-2 text-gray-700'%><br />
+        <%= form.text_field :start_year, class: "form-control inline-block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" %>
+      </div>
+      <div class="field mb-5">
+        <%= form.label :end_year, class: 'form-label inline-block mb-2 text-gray-700'%><br />
+        <%= form.text_field :end_year, class: "form-control inline-block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" %>
+      </div>
+      <div class="actions">
+        <%= form.submit "Create", class: "mb-5 px-3 py-2 bg-green-600 text-white font-medium text-xs leading-tight rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out" %>
+      </div>
+    </div>
+  <% end %>
+</div>

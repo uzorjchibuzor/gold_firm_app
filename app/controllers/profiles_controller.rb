@@ -5,6 +5,8 @@ class ProfilesController < ApplicationController
   before_action :assign_user
 
   def show
+    return unless current_user.admin? || current_user.teacher?
+    @school_year = SchoolYear.first
   end
 
   def session_details

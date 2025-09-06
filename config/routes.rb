@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :attendances
   resources :examinations
   devise_for :users
 
@@ -19,6 +20,7 @@ Rails.application.routes.draw do
   post "admin/manage_users/unenroll_user", to: "admin/manage_users#unenroll_user", as: "unenroll_user"
   post "admin/manage_users/disable_user", to: "admin/manage_users#disable_user", as: "disable_user"
   namespace :admin do
+    resources :school_years
     resources :manage_users
   end
   # Admin Routes Ends

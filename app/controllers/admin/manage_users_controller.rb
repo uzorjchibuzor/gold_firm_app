@@ -70,9 +70,6 @@ class Admin::ManageUsersController < ApplicationController
 
 
   private
-  def is_user_admin?
-      redirect_to root_path, notice: "You must be an admin to access the requested page" if !(current_user.admin?)
-  end
 
   def set_current_school_session
     @current_session_year ||= SchoolYear.find_by_title(params[:school_session])

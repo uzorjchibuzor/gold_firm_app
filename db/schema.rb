@@ -10,16 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_09_01_201957) do
+ActiveRecord::Schema[7.2].define(version: 2025_09_03_120236) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "departments", force: :cascade do |t|
+  create_table "attendances", force: :cascade do |t|
+    t.bigint "user_id", null: false
     t.bigint "grade_level_id", null: false
-    t.string "title"
+    t.date "date", null: false
+    t.integer "status", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["grade_level_id"], name: "index_departments_on_grade_level_id"
+    t.index ["grade_level_id"], name: "index_attendances_on_grade_level_id"
+    t.index ["user_id"], name: "index_attendances_on_user_id"
   end
 
   create_table "examination_histories", force: :cascade do |t|
@@ -116,7 +119,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_01_201957) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "departments", "grade_levels"
+  add_foreign_key "attendances", "grade_levels"
+  add_foreign_key "attendances", "users"
   add_foreign_key "examination_histories", "examinations"
   add_foreign_key "examination_histories", "users"
   add_foreign_key "examinations", "grade_levels"

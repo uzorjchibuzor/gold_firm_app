@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :attendance do
+    date { Date.today.to_s }
+    user
+    grade_level
+  end
+
   factory :examination_history do
     examination { nil }
     updater { nil }
