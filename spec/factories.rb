@@ -2,8 +2,9 @@
 
 FactoryBot.define do
   factory :attendance do
-    user { nil }
-    grade_level { nil }
+    date { Date.today.to_s }
+    user
+    grade_level
   end
 
   factory :examination_history do

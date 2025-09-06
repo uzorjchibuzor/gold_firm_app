@@ -66,6 +66,18 @@ RSpec.describe "Attendance Taking Operations", type: :feature do
               expect(page).to have_css("#student_#{student_user.id}_2025-08-08", text: "Absent")
             end
           end
+
+          context "when the attendance has been submitted previously" do
+            it "alerts the user about the duplicacy of object" do
+              create(:attendance, user: student_user, grade_level: grade_level, date: "2025-08-08")
+              click_on "take_attendance_button_class_id_#{grade_level.id}"
+              fill_in "attendance_date", with: "2025-08-08"
+              select "Absent", from: "attendance_student_id_#{student_user.id}_status"
+              click_on "Submit Attendance"
+
+              expect(page).to have_content("Error Saving attendance for #{student_user.full_name}: Date has already been taken")
+            end
+          end
         end
       end
     end
